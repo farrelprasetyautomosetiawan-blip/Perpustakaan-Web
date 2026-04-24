@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BukuController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\AnggotaController;
@@ -8,6 +9,15 @@ use App\Http\Controllers\AnggotaController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Routes manual untuk CRUD Buku
+Route::get('/buku', [BukuController::class, 'index'])->name('buku.index');
+Route::get('/buku/create', [BukuController::class, 'create'])->name('buku.create');
+Route::post('/buku', [BukuController::class, 'store'])->name('buku.store');
+Route::get('/buku/{id}', [BukuController::class, 'show'])->name('buku.show');
+Route::get('/buku/{id}/edit', [BukuController::class, 'edit'])->name('buku.edit');
+Route::put('/buku/{id}', [BukuController::class, 'update'])->name('buku.update');
+Route::delete('/buku/{id}', [BukuController::class, 'destroy'])->name('buku.destroy');
 
 // Routes untuk Peminjaman CRUD
 Route::resource('peminjaman', PeminjamanController::class);
