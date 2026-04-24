@@ -52,6 +52,11 @@
                                 <a href="{{ route('peminjaman.edit', $item) }}" class="inline-block bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition">
                                     Edit
                                 </a>
+                                @if($item->status === 'dipinjam')
+                                    <a href="{{ route('pengembalian.create', ['peminjaman_id' => $item->id]) }}" class="inline-block bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition">
+                                        Kembalikan
+                                    </a>
+                                @endif
                                 <form action="{{ route('peminjaman.destroy', $item) }}" method="POST" class="inline-block"
                                     onsubmit="return confirm('Yakin ingin menghapus?');">
                                     @csrf
