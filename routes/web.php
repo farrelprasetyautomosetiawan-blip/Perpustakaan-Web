@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\DendaController;
 use App\Http\Controllers\AnggotaController;
 
 Route::get('/', function () {
@@ -24,6 +25,9 @@ Route::resource('peminjaman', PeminjamanController::class);
 
 // Routes untuk Pengembalian CRUD
 Route::resource('pengembalian', PengembalianController::class);
+
+// Routes untuk Denda CRUD
+Route::resource('denda', DendaController::class);
 
 // Route manual untuk CRUD Anggota
 Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');
