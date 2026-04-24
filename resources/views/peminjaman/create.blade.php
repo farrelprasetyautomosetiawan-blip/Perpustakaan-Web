@@ -1,16 +1,14 @@
 @extends('peminjaman.layout')
 
-@section('title', 'Tambah Peminjaman')
-
-@section('content')
-<div class="max-w-2xl mx-auto">
-    <div class="bg-white rounded-lg shadow p-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-6">Tambah Peminjaman Baru</h1>
+@section('peminjaman_content')
+<div style="max-width:700px;margin:0 auto;">
+    <div style="background:var(--warm-white);border-radius:8px;padding:2rem;border:1px solid var(--border);">
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; color: var(--brown-deep); margin: 0 0 1.5rem 0;">Tambah Peminjaman Baru</h1>
 
         @if ($errors->any())
-            <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-                <h3 class="font-bold mb-2">Validasi Gagal:</h3>
-                <ul class="list-disc list-inside">
+            <div style="margin-bottom:1.5rem;padding:1rem;background:#F8D7DA;border:1px solid #F5C6CB;border-radius:6px;color:#721C24;">
+                <h3 style="font-weight:600;margin:0 0 0.5rem 0;">Validasi Gagal:</h3>
+                <ul style="margin:0;padding-left:1.5rem;">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach

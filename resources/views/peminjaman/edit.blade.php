@@ -1,11 +1,9 @@
 @extends('peminjaman.layout')
 
-@section('title', 'Edit Peminjaman')
-
-@section('content')
-<div class="max-w-2xl mx-auto">
-    <div class="bg-white rounded-lg shadow p-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-6">Edit Peminjaman</h1>
+@section('peminjaman_content')
+<div style="max-width:700px;margin:0 auto;">
+    <div style="background:var(--warm-white);border-radius:8px;padding:2rem;border:1px solid var(--border);">
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; color: var(--brown-deep); margin: 0 0 1.5rem 0;">Edit Peminjaman</h1>
 
         @if ($errors->any())
             <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">

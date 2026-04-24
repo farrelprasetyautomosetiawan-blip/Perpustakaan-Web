@@ -1,13 +1,11 @@
 @extends('peminjaman.layout')
 
-@section('title', 'Detail Peminjaman')
-
-@section('content')
-<div class="max-w-3xl mx-auto">
-    <div class="bg-white rounded-lg shadow p-8">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-900">Detail Peminjaman</h1>
-            <div class="space-x-2">
+@section('peminjaman_content')
+<div style="max-width:800px;margin:0 auto;">
+    <div style="background:var(--warm-white);border-radius:8px;padding:2rem;border:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 700; color: var(--brown-deep); margin: 0;">Detail Peminjaman</h1>
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:flex-end;">
                 <a href="{{ route('peminjaman.edit', $peminjaman) }}" class="inline-block bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition">
                     Edit
                 </a>

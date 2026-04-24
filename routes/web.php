@@ -8,8 +8,8 @@ use App\Http\Controllers\DendaController;
 use App\Http\Controllers\AnggotaController;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
 
 // Routes manual untuk CRUD Buku
 Route::get('/buku', [BukuController::class, 'index'])->name('buku.index');

@@ -1,72 +1,69 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Denda</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-6">
-    <div class="max-w-7xl mx-auto">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-900">Manajemen Denda</h1>
-                <p class="text-gray-600 mt-1">Kelola data denda pengembalian buku dari peminjaman.</p>
-            </div>
-            <div class="flex flex-wrap gap-3">
-                <a href="{{ route('denda.create') }}" class="inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg shadow-sm hover:bg-blue-700">Tambah Denda</a>
-                <a href="{{ route('peminjaman.index') }}" class="inline-flex items-center justify-center px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Daftar Peminjaman</a>
-            </div>
-        </div>
+@extends('denda.layout')
 
-        @if(session('success'))
-            <div class="mb-4 rounded-lg bg-green-100 border border-green-300 p-4 text-green-700">
-                {{ session('success') }}
-            </div>
-        @endif
+@section('denda_content')
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+    <div>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--brown-deep); margin: 0 0 0.5rem 0;">Manajemen Denda</h1>
+        <p style="color:var(--brown-mid);margin:0;font-size:0.95rem;">Kelola data denda pengembalian buku</p>
+    </div>
+    <a href="{{ route('denda.create') }}" class="btn-add">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Tambah Denda
+    </a>
+</div>
 
-        <div class="overflow-hidden rounded-lg bg-white shadow">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">ID</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Peminjam</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Judul Buku</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Tanggal Pengembalian</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Denda</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200 bg-white">
-                    @forelse($dendas as $denda)
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $denda->id }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $denda->peminjaman->nama_peminjam ?? 'Tidak tersedia' }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $denda->peminjaman->judul_buku ?? 'Tidak tersedia' }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ optional($denda->tanggal_pengembalian)->format('d-m-Y') }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">Rp {{ number_format($denda->denda ?? 0, 0, ',', '.') }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                <a href="{{ route('denda.show', $denda) }}" class="text-indigo-600 hover:text-indigo-900">Lihat</a>
-                                <a href="{{ route('denda.edit', $denda) }}" class="text-yellow-600 hover:text-yellow-900">Edit</a>
-                                <form action="{{ route('denda.destroy', $denda) }}" method="POST" class="inline-block">
+@if($dendas->count() > 0)
+    <div style="background:var(--warm-white);border-radius:8px;overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+        <table style="width:100%;border-collapse:collapse;">
+            <thead style="background:var(--paper);border-bottom:2px solid var(--border);">
+                <tr>
+                    <th style="padding:1.25rem;text-align:left;font-weight:600;color:var(--brown-deep);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;">ID</th>
+                    <th style="padding:1.25rem;text-align:left;font-weight:600;color:var(--brown-deep);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;">Peminjam</th>
+                    <th style="padding:1.25rem;text-align:left;font-weight:600;color:var(--brown-deep);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;">Buku</th>
+                    <th style="padding:1.25rem;text-align:left;font-weight:600;color:var(--brown-deep);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;">Tgl Pengembalian</th>
+                    <th style="padding:1.25rem;text-align:left;font-weight:600;color:var(--brown-deep);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;">Denda</th>
+                    <th style="padding:1.25rem;text-align:left;font-weight:600;color:var(--brown-deep);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($dendas as $denda)
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:1.25rem;color:var(--ink);font-size:0.9rem;font-weight:500;">{{ $denda->id }}</td>
+                        <td style="padding:1.25rem;color:var(--ink);font-size:0.9rem;">{{ $denda->peminjaman->nama_peminjam ?? '-' }}</td>
+                        <td style="padding:1.25rem;color:var(--ink);font-size:0.9rem;">{{ $denda->peminjaman->judul_buku ?? '-' }}</td>
+                        <td style="padding:1.25rem;color:var(--ink);font-size:0.9rem;">{{ optional($denda->tanggal_pengembalian)->format('d/m/Y') ?? '-' }}</td>
+                        <td style="padding:1.25rem;color:var(--ink);font-size:0.9rem;font-weight:600;color:#C41E3A;">Rp {{ number_format($denda->denda ?? 0, 0, ',', '.') }}</td>
+                        <td style="padding:1.25rem;">
+                            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                                <a href="{{ route('denda.show', $denda) }}" style="padding:0.4rem 0.8rem;background:var(--sage);color:white;border-radius:4px;text-decoration:none;font-size:0.85rem;font-weight:500;">Lihat</a>
+                                <a href="{{ route('denda.edit', $denda) }}" style="padding:0.4rem 0.8rem;background:var(--amber);color:var(--brown-deep);border-radius:4px;text-decoration:none;font-size:0.85rem;font-weight:500;">Edit</a>
+                                <form action="{{ route('denda.destroy', $denda) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Hapus data denda ini?')">Hapus</button>
+                                    <button type="submit" style="padding:0.4rem 0.8rem;background:#C41E3A;color:white;border-radius:4px;border:none;font-size:0.85rem;cursor:pointer;font-weight:500;">Hapus</button>
                                 </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="px-6 py-10 text-center text-sm text-gray-500">Belum ada data denda.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        <div class="mt-4">
-            {{ $dendas->links() }}
-        </div>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" style="padding:2rem;text-align:center;color:var(--brown-mid);">Tidak ada data denda</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
-</body>
-</html>
+
+    <div style="display:flex;justify-content:center;margin-top:2rem;">
+        {{ $dendas->links() }}
+    </div>
+@else
+    <div style="background:var(--warm-white);border-radius:8px;padding:2rem;text-align:center;border:1px solid var(--border);">
+        <p style="color:var(--brown-mid);margin-bottom:1rem;font-size:1.05rem;">📭 Belum ada data denda</p>
+        <a href="{{ route('denda.create') }}" class="btn-add" style="display:inline-flex;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Buat Data Denda
+        </a>
+    </div>
+@endif
+@endsection

@@ -163,20 +163,53 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;height:70px;">
-                <a href="{{ route('anggota.index') }}" class="navbar-brand">
+            <div style="display:flex;justify-content:space-between;align-items:center;height:70px;flex-wrap:wrap;">
+                <!-- Logo -->
+                <a href="{{ route('home') }}" class="navbar-brand">
                     <div class="brand-icon">📚</div>
                     <div>
                         <div style="font-size:1.25rem;line-height:1.2;">Pustaka</div>
-                        <div style="font-size:0.65rem;letter-spacing:0.2em;color:var(--amber);font-family:'DM Sans',sans-serif;font-weight:400;text-transform:uppercase;">Manajemen Anggota</div>
+                        <div style="font-size:0.65rem;letter-spacing:0.2em;color:var(--amber);font-family:'DM Sans',sans-serif;font-weight:400;text-transform:uppercase;">Perpustakaan</div>
                     </div>
                 </a>
-                <a href="{{ route('anggota.create') }}" class="btn-add">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    Tambah Anggota
-                </a>
+
+                <!-- Menu Navigasi -->
+                <div style="display:flex;gap:2rem;align-items:center;flex-wrap:wrap;flex:1;margin-left:2rem;">
+                    <a href="{{ route('home') }}" style="color:var(--cream);text-decoration:none;font-weight:500;transition:color 0.2s;font-size:0.9rem;" class="nav-link">
+                        Beranda
+                    </a>
+                    <a href="{{ route('peminjaman.index') }}" style="color:var(--cream);text-decoration:none;font-weight:500;transition:color 0.2s;font-size:0.9rem;" class="nav-link">
+                        Peminjaman
+                    </a>
+                    @if(Route::has('buku.index'))
+                    <a href="{{ route('buku.index') }}" style="color:var(--cream);text-decoration:none;font-weight:500;transition:color 0.2s;font-size:0.9rem;" class="nav-link">
+                        Buku
+                    </a>
+                    @endif
+                    @if(Route::has('pengembalian.index'))
+                    <a href="{{ route('pengembalian.index') }}" style="color:var(--cream);text-decoration:none;font-weight:500;transition:color 0.2s;font-size:0.9rem;" class="nav-link">
+                        Pengembalian
+                    </a>
+                    @endif
+                    @if(Route::has('denda.index'))
+                    <a href="{{ route('denda.index') }}" style="color:var(--cream);text-decoration:none;font-weight:500;transition:color 0.2s;font-size:0.9rem;" class="nav-link">
+                        Denda
+                    </a>
+                    @endif
+                    @if(Route::has('anggota.index'))
+                    <a href="{{ route('anggota.index') }}" style="color:var(--cream);text-decoration:none;font-weight:500;transition:color 0.2s;font-size:0.9rem;" class="nav-link">
+                        Anggota
+                    </a>
+                    @endif
+                </div>
             </div>
         </div>
+
+        <style>
+            .nav-link:hover {
+                color: var(--amber-light) !important;
+            }
+        </style>
     </nav>
 
     <!-- Page Body -->
